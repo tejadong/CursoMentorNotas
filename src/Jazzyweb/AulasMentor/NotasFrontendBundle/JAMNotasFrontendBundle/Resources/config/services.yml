@@ -1,0 +1,4 @@
+services:
+#    jam_notas_frontend.example:
+#        class: Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
