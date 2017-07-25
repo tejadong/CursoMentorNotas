@@ -65,3 +65,7 @@ jamn_tarifas:
 jamn_contratar:
      path:  /contratar
      defaults: { _controller: JAMNotasFrontendBundle:Contratos:contratarPremium }
+
+jamn_dame_notas:
+     path:  /dameNotas/{_format}
+     defaults: { _controller: JAMNotasFrontendBundle:Notas:dameNotas, _format: 'json' }
