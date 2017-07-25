@@ -1,28 +1,26 @@
 jamn_homepage:
      path:  /
      defaults: { _controller: JAMNotasFrontendBundle:Notas:index }
-     requirements:
-       methods: [GET]
+     methods: [GET]
 
 jamn_conetiqueta:
      path:  /conetiqueta/{etiqueta}
      defaults: { _controller: JAMNotasFrontendBundle:Notas:index }
+     methods: [GET]
      requirements:
          id:  \d+
-         methods: [GET]
 
 jamn_buscar:
      path:  /buscar
      defaults: { _controller: JAMNotasFrontendBundle:Notas:index, etiqueta: termino }
-     requirements:
-       methods: [POST]
+     methods: [POST]
 
 jamn_nota:
      path:  /nota/{id}
      defaults: { _controller: JAMNotasFrontendBundle:Notas:index }
+     methods: [GET]
      requirements:
          id:  \d+
-         methods: [GET]
 
 jamn_nueva:
      path:  /nueva
@@ -47,8 +45,8 @@ jamn_espacio_premium:
 jamn_rss:
      path:  /rss
      defaults: { _controller: JAMNotasFrontendBundle:Notas:rss }
+     methods: [GET]
      requirements:
-       methods: [GET]
        _format: xml
 
 jamn_registro:
@@ -62,8 +60,7 @@ jamn_activar_cuenta:
 jamn_tarifas:
      path:  /tarifas
      defaults: { _controller: JAMNotasFrontendBundle:Contratos:tarifasPremium }
-     requirements:
-       methods: [GET]
+     methods: [GET]
 
 jamn_contratar:
      path:  /contratar
