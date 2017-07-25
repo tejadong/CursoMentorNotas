@@ -35,6 +35,19 @@ class Contrato
      */
     private $referencia;
 
+    ////ASOCIACIONES////
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Tarifa")
+     */
+    private $tarifa;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     */
+    private $usuario;
+
+    ////FIN ASOCIACIONES////
 
     /**
      * Get id
@@ -90,5 +103,51 @@ class Contrato
     public function getReferencia()
     {
         return $this->referencia;
+    }
+
+    /**
+     * Set tarifa
+     *
+     * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Tarifa $tarifa
+     * @return Contrato
+     */
+    public function setTarifa(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Tarifa $tarifa = null)
+    {
+        $this->tarifa = $tarifa;
+
+        return $this;
+    }
+
+    /**
+     * Get tarifa
+     *
+     * @return \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Tarifa 
+     */
+    public function getTarifa()
+    {
+        return $this->tarifa;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario $usuario
+     * @return Contrato
+     */
+    public function setUsuario(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }

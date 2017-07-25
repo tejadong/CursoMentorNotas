@@ -2,6 +2,7 @@
 
 namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,6 +50,24 @@ class Nota
      */
     private $path;
 
+    ////ASOCIACIONES////
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     */
+    private $usuario;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Etiqueta", inversedBy="notas")
+     */
+    private $etiquetas;
+
+    ////FIN ASOCIACIONES////
+
+    public function __construct()
+    {
+        $this->etiquetas = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -150,5 +169,61 @@ class Nota
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario $usuario
+     * @return Nota
+     */
+    public function setUsuario(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Add etiquetas
+     *
+     * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Etiqueta $etiquetas
+     * @return Nota
+     */
+    public function addEtiqueta(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Etiqueta $etiquetas)
+    {
+        $this->etiquetas[] = $etiquetas;
+
+        return $this;
+    }
+
+    /**
+     * Remove etiquetas
+     *
+     * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Etiqueta $etiquetas
+     */
+    public function removeEtiqueta(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Etiqueta $etiquetas)
+    {
+        $this->etiquetas->removeElement($etiquetas);
+    }
+
+    /**
+     * Get etiquetas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEtiquetas()
+    {
+        return $this->etiquetas;
     }
 }

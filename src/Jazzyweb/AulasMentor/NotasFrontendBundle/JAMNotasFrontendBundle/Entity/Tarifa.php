@@ -2,6 +2,7 @@
 
 namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -56,6 +57,19 @@ class Tarifa
      */
     private $validoHasta;
 
+    ////ASOCIACIONES////
+
+    /**
+     * @ORM\OneToMany(targetEntity="Contrato", mappedBy="tarifa")
+     */
+    private $contratos;
+
+    ////FIN ASOCIACIONES////
+
+    public function __construct()
+    {
+        $this->contratos = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -180,5 +194,38 @@ class Tarifa
     public function getValidoHasta()
     {
         return $this->validoHasta;
+    }
+
+    /**
+     * Add contratos
+     *
+     * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Contrato $contratos
+     * @return Tarifa
+     */
+    public function addContrato(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Contrato $contratos)
+    {
+        $this->contratos[] = $contratos;
+
+        return $this;
+    }
+
+    /**
+     * Remove contratos
+     *
+     * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Contrato $contratos
+     */
+    public function removeContrato(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Contrato $contratos)
+    {
+        $this->contratos->removeElement($contratos);
+    }
+
+    /**
+     * Get contratos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContratos()
+    {
+        return $this->contratos;
     }
 }

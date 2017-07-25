@@ -2,6 +2,7 @@
 
 namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +36,19 @@ class Grupo
      */
     private $rol;
 
+    ////ASOCIACIONES////
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="grupos")
+     */
+    private $usuarios;
+
+    ////FIN ASOCIACIONES////
+
+    public function __construct()
+    {
+        $this->usuarios = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -90,5 +104,38 @@ class Grupo
     public function getRol()
     {
         return $this->rol;
+    }
+
+    /**
+     * Add usuarios
+     *
+     * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario $usuarios
+     * @return Grupo
+     */
+    public function addUsuario(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario $usuarios)
+    {
+        $this->usuarios[] = $usuarios;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuarios
+     *
+     * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario $usuarios
+     */
+    public function removeUsuario(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario $usuarios)
+    {
+        $this->usuarios->removeElement($usuarios);
+    }
+
+    /**
+     * Get usuarios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsuarios()
+    {
+        return $this->usuarios;
     }
 }
