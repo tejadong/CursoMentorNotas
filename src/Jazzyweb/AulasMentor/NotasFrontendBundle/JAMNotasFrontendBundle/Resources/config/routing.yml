@@ -1,3 +1,70 @@
-jam_notas_frontend_homepage:
-    path:     /
-    defaults: { _controller: JAMNotasFrontendBundle:Default:index }
+jamn_homepage:
+     path:  /
+     defaults: { _controller: JAMNotasFrontendBundle:Notas:index }
+     requirements:
+       methods: [GET]
+
+jamn_conetiqueta:
+     path:  /conetiqueta/{etiqueta}
+     defaults: { _controller: JAMNotasFrontendBundle:Notas:index }
+     requirements:
+         id:  \d+
+         methods: [GET]
+
+jamn_buscar:
+     path:  /buscar
+     defaults: { _controller: JAMNotasFrontendBundle:Notas:index, etiqueta: termino }
+     requirements:
+       methods: [POST]
+
+jamn_nota:
+     path:  /nota/{id}
+     defaults: { _controller: JAMNotasFrontendBundle:Notas:index }
+     requirements:
+         id:  \d+
+         methods: [GET]
+
+jamn_nueva:
+     path:  /nueva
+     defaults: { _controller: JAMNotasFrontendBundle:Notas:nueva }
+
+jamn_editar:
+     path:  /editar/{id}
+     defaults: { _controller: JAMNotasFrontendBundle:Notas:editar }
+     requirements:
+       id:  \d+
+
+jamn_borrar:
+     path:  /borrar/{id}
+     defaults: { _controller: JAMNotasFrontendBundle:Notas:borrar }
+     requirements:
+       id:  \d+
+
+jamn_espacio_premium:
+     path: /miespacio
+     defaults: { _controller: JAMNotasFrontendBundle:Notas:espacioPremium }
+
+jamn_rss:
+     path:  /rss
+     defaults: { _controller: JAMNotasFrontendBundle:Notas:rss }
+     requirements:
+       methods: [GET]
+       _format: xml
+
+jamn_registro:
+     path:  /registro
+     defaults: { _controller: JAMNotasFrontendBundle:Login:registro }
+
+jamn_activar_cuenta:
+     path:  /activar/{token}
+     defaults: { _controller: JAMNotasFrontendBundle:Login:activar }
+
+jamn_tarifas:
+     path:  /tarifas
+     defaults: { _controller: JAMNotasFrontendBundle:Contratos:tarifasPremium }
+     requirements:
+       methods: [GET]
+
+jamn_contratar:
+     path:  /contratar
+     defaults: { _controller: JAMNotasFrontendBundle:Contratos:contratarPremium }
