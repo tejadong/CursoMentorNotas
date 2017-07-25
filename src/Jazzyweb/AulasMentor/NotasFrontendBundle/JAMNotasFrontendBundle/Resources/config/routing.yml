@@ -81,3 +81,7 @@ jamn_orm_recuperar:
 jamn_orm_recuperar_notas:
     path:  /estudio_orm/recuperar_notas
     defaults: { _controller: JAMNotasFrontendBundle:EstudioORM:recuperarNotas }
+
+jamn_orm_dql:
+    path:  /estudio_orm/dql
+    defaults: { _controller: JAMNotasFrontendBundle:EstudioORM:dql }

@@ -78,4 +78,22 @@ class EstudioORMController extends Controller
                 array('notas' => $notas)
             );
     }
+
+    public function dqlAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        // Todas las notas que tienen en el título la palabra "ipsum" con DQL
+        $query = $em
+            ->createQuery(
+                "SELECT n FROM JAMNotasFrontendBundle:Nota n where n.texto LIKE :termino")
+            ->setParameter('termino', '%ipsum%');
+
+        $notasIpsum = $query->getResult();
+
+        return
+            $this->render(
+                'JAMNotasFrontendBundle:EstudioORM:recuperarNotas.html.twig',
+                array('notas' => $notasIpsum)
+            );
+    }
 }
