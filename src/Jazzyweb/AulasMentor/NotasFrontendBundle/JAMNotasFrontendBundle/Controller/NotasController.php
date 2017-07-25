@@ -200,4 +200,13 @@ class NotasController extends Controller
         );
         return array($etiquetas, $notas, $nota_seleccionada);
     }
+
+    public function dameNotasAction($_format)
+    {
+        list($etiquetas, $notas, $nota_seleccionada) = $this->dameEtiquetasYNotas();
+
+        return $this->render('JAMNotasFrontendBundle:Notas:dameNotas.'.$_format.'.twig', array(
+            'notas' => $notas
+        ));
+    }
 }
