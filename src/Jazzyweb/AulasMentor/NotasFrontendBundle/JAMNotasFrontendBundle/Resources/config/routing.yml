@@ -44,7 +44,7 @@ jamn_espacio_premium:
 
 jamn_rss:
      path:  /rss
-     defaults: { _controller: JAMNotasFrontendBundle:Notas:rss }
+     defaults: { _controller: JAMNotasFrontendBundle:Es }
      methods: [GET]
      requirements:
        _format: xml
@@ -69,3 +69,15 @@ jamn_contratar:
 jamn_dame_notas:
      path:  /dameNotas/{_format}
      defaults: { _controller: JAMNotasFrontendBundle:Notas:dameNotas, _format: 'json' }
+
+jamn_orm_crear:
+     path:  /estudio_orm/crear
+     defaults: { _controller: JAMNotasFrontendBundle:EstudioORM:crear }
+
+jamn_orm_recuperar:
+     path:  /estudio_orm/recuperar/{id}
+     defaults: { _controller: JAMNotasFrontendBundle:EstudioORM:recuperar }
+
+jamn_orm_recuperar_notas:
+    path:  /estudio_orm/recuperar_notas
+    defaults: { _controller: JAMNotasFrontendBundle:EstudioORM:recuperarNotas }
