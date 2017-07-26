@@ -85,3 +85,7 @@ jamn_orm_recuperar_notas:
 jamn_orm_dql:
     path:  /estudio_orm/dql
     defaults: { _controller: JAMNotasFrontendBundle:EstudioORM:dql }
+
+jamn_evf:
+   path: /estudio_valyforms/valida_usuario
+   defaults: { _controller: JAMNotasFrontendBundle:EstudioValidacionYFormulario:validaUsuario }
