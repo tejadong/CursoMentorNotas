@@ -2,8 +2,10 @@
 
 namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Controller;
 
+use Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Form\Type\UsuarioType;
 use Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class EstudioValidacionYFormularioController extends Controller
 {
@@ -54,5 +56,31 @@ class EstudioValidacionYFormularioController extends Controller
              'JAMNotasFrontendBundle:EstudioValidacionYFormulario:validaUsuario.html.twig',
              array('usuarios' => $usuarios));
      }
+
+    public function formUsuarioAction(Request $request)
+    {
+        $usuario = new Usuario();
+
+        $form = $this->createForm(new UsuarioType(), $usuario);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid())
+        {
+            // Se procesa el formulario
+            $this
+                ->get('session')
+                ->getFlashBag()->add('mensaje','El formulario era válido');
+
+            return
+                $this
+                    ->redirect($this->generateUrl('jamn_evf_form_usuario'));
+        }
+
+        return $this->render(
+            'JAMNotasFrontendBundle:EstudioValidacionYFormulario:formUsuario.html.twig',
+            array('form' => $form->createView())
+        );
+    }
 
 }

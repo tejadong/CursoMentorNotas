@@ -89,3 +89,7 @@ jamn_orm_dql:
 jamn_evf:
    path: /estudio_valyforms/valida_usuario
    defaults: { _controller: JAMNotasFrontendBundle:EstudioValidacionYFormulario:validaUsuario }
+
+jamn_evf_form_usuario:
+   path: /estudio_valyforms/form_usuario
+   defaults: { _controller: JAMNotasFrontendBundle:EstudioValidacionYFormulario:formUsuario }
