@@ -62,6 +62,8 @@ class Nota
      */
     private $etiquetas;
 
+    private $file;
+
     ////FIN ASOCIACIONES////
 
     public function __construct()
@@ -177,7 +179,7 @@ class Nota
      * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario $usuario
      * @return Nota
      */
-    public function setUsuario(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario $usuario = null)
+    public function setUsuario(Usuario $usuario = null)
     {
         $this->usuario = $usuario;
 
@@ -200,7 +202,7 @@ class Nota
      * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Etiqueta $etiquetas
      * @return Nota
      */
-    public function addEtiqueta(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Etiqueta $etiquetas)
+    public function addEtiqueta(Etiqueta $etiquetas)
     {
         $this->etiquetas[] = $etiquetas;
 
@@ -212,7 +214,7 @@ class Nota
      *
      * @param \Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Etiqueta $etiquetas
      */
-    public function removeEtiqueta(\Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Etiqueta $etiquetas)
+    public function removeEtiqueta(Etiqueta $etiquetas)
     {
         $this->etiquetas->removeElement($etiquetas);
     }
@@ -225,5 +227,47 @@ class Nota
     public function getEtiquetas()
     {
         return $this->etiquetas;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded documents should be saved
+        return __DIR__.'/../../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
+        return 'uploads/documents';
+    }
+
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->file) {
+            return;
+        }
+
+//        // we use the original file name here but you should
+//        // sanitize it at least to avoid any security issues
+//
+//        // move takes the target directory and then the target filename to move to
+//        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
+//
+//        // set the path property to the filename where you'ved saved the file
+//        $this->path = $this->file->getClientOriginalName();
+//
+//        // clean up the file property as you won't need it anymore
+//        $this->file = null;
     }
 }

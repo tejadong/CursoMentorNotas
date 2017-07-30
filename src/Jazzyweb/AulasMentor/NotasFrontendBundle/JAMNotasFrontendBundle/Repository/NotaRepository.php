@@ -4,6 +4,7 @@ namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Reposi
 
 use Doctrine\ORM\EntityRepository;
 use Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Etiqueta;
+use Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Nota;
 use Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario;
 
 
@@ -76,5 +77,12 @@ class NotaRepository extends EntityRepository
             );
 
         return $query->getResult();
+    }
+
+    public function nuevaNota(Nota $nota) {
+        $em = $this->getEntityManager();
+        $em->persist($nota);
+        $em->flush();
+        return $nota->getId();
     }
 }

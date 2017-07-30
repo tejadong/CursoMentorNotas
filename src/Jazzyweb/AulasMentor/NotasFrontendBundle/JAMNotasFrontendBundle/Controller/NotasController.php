@@ -2,6 +2,7 @@
 
 namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Controller;
 
+use Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Nota;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -52,19 +53,32 @@ class NotasController extends Controller
     {
         $session = $request->getSession();
 
-        if ($request->getMethod() == 'POST') {
+//        if ($request->getMethod() == 'POST') {
+//
+//            // si los datos que vienen en la request son buenos guarda la nota
+//
+//            $session->getFlashBag()->add('mensaje', 'Se debería guardar la nota:'
+//                    . $request->get('nombre') .
+//                    '. Como aun no disponemos de un servicio para
+//                          persistir los datos, mostramos la nota 1');
+//
+//            return $this->redirect($this->generateUrl('jamn_nota', array('id' => 1)));
+//        }
 
-            // si los datos que vienen en la request son buenos guarda la nota
+        $nota = new Nota();
 
-            $session
-                ->getFlashBag()->add('mensaje', 'Se debería guardar la nota:'
-                    . $request->get('nombre') .
-                    '. Como aun no disponemos de un servicio para
-                          persistir los datos, mostramos la nota 1');
+        $form = $this->createForm(Nota::class, $nota);
 
-            return
-                $this
-                    ->redirect($this->generateUrl('jamn_nota', array('id' => 1)));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            if ( ($id = $em->getRepository('JAMNotasFrontendBundle:Nota')->nuevaNota($nota)) >= 1) {
+                // Se procesa el formulario
+                $session->get('session')->getFlashBag()->add('mensaje', 'Nota creada');
+                return $this->redirect($this->generateUrl('jamn_nota', array( 'id' => $id)));
+            }
         }
 
         list($etiquetas, $notas, $nota_seleccionada) = $this->dameEtiquetasYNotas();
@@ -74,8 +88,10 @@ class NotasController extends Controller
                 'etiquetas' => $etiquetas,
                 'notas' => $notas,
                 'nota_seleccionada' => $nota_seleccionada,
+                'form' => $form->createView()
             )
         );
+
     }
 
     public function editarAction(Request $request)
