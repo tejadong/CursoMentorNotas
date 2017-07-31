@@ -2,6 +2,7 @@
 
 namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Controller;
 
+use Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Form\Type\NotaType;
 use Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Nota;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,16 +68,15 @@ class NotasController extends Controller
 
         $nota = new Nota();
 
-        $form = $this->createForm(Nota::class, $nota);
+        $form = $this->createForm(NotaType::class, $nota);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             if ( ($id = $em->getRepository('JAMNotasFrontendBundle:Nota')->nuevaNota($nota)) >= 1) {
                 // Se procesa el formulario
-                $session->get('session')->getFlashBag()->add('mensaje', 'Nota creada');
+                $session->getFlashBag()->add('mensaje', 'Nota creada');
                 return $this->redirect($this->generateUrl('jamn_nota', array( 'id' => $id)));
             }
         }

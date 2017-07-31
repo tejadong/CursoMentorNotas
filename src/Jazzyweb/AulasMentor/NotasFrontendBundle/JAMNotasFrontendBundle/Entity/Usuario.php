@@ -454,4 +454,9 @@ class Usuario
     {
         return $this->grupos;
     }
+
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 }

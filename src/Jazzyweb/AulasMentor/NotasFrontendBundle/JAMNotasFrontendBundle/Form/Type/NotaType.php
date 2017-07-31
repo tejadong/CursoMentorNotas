@@ -4,6 +4,8 @@ namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Form\T
 
 use Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Nota;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,12 +18,11 @@ class NotaType extends AbstractType
     {
         $builder
             ->add('titulo', TextType::class)
-            ->add('texto', TextType::class)
-            ->add('fecha', null)
-            ->add('path', null)
-            ->add('usuario', null)
-            ->add('crear', SubmitType::class, array('label' => 'Crear'))
-        ;
+            ->add('texto', TextareaType::class)
+            ->add('fecha')
+            ->add('file', FileType::class, array('label' => 'Adjuntar fichero'))
+            ->add('usuario')
+            ->add('crear', SubmitType::class, array('label' => 'Crear'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
