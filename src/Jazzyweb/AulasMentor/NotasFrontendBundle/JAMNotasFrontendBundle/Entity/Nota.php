@@ -5,6 +5,7 @@ namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Nota
@@ -27,20 +28,22 @@ class Nota
      * @var string
      *
      * @ORM\Column(name="titulo", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min="30")
      */
     private $titulo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="texto", type="text")
+     * @ORM\Column(name="texto", type="text", nullable=true)
      */
     private $texto;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="date")
+     * @ORM\Column(name="fecha", type="date", nullable=true)
      */
     private $fecha;
 
@@ -63,7 +66,9 @@ class Nota
      */
     private $etiquetas;
 
-    /** @var UploadedFile $file */
+    /** @var UploadedFile $file
+     *  @Assert\File(maxSize="6000000")
+     */
     private $file;
 
     ////FIN ASOCIACIONES////
