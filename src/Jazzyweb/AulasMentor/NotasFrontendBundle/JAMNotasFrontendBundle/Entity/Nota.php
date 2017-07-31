@@ -4,6 +4,7 @@ namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Nota
@@ -39,14 +40,14 @@ class Nota
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="datetime")
+     * @ORM\Column(name="fecha", type="date")
      */
     private $fecha;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="path", type="string", length=255)
+     * @ORM\Column(name="path", type="string", length=255, nullable=true)
      */
     private $path;
 
@@ -62,6 +63,7 @@ class Nota
      */
     private $etiquetas;
 
+    /** @var UploadedFile $file */
     private $file;
 
     ////FIN ASOCIACIONES////
@@ -229,6 +231,24 @@ class Nota
         return $this->etiquetas;
     }
 
+    /**
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param UploadedFile $file
+     * @return Nota
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+        return $this;
+    }
+
     public function getAbsolutePath()
     {
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
@@ -242,7 +262,7 @@ class Nota
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../../../../web/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -258,16 +278,18 @@ class Nota
             return;
         }
 
-//        // we use the original file name here but you should
-//        // sanitize it at least to avoid any security issues
-//
-//        // move takes the target directory and then the target filename to move to
-//        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
-//
-//        // set the path property to the filename where you'ved saved the file
-//        $this->path = $this->file->getClientOriginalName();
-//
-//        // clean up the file property as you won't need it anymore
-//        $this->file = null;
+        // we use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        $fileName = md5(uniqid()).'.'.$this->file->guessExtension();
+
+        // move takes the target directory and then the target filename to move to
+        $this->file->move($this->getUploadRootDir(), $fileName);
+
+        // set the path property to the filename where you'ved saved the file
+        $this->path = $fileName;
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
     }
+
 }
