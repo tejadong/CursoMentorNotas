@@ -81,6 +81,7 @@ class NotaRepository extends EntityRepository
 
     public function nuevaNota(Nota $nota) {
         $em = $this->getEntityManager();
+        $nota->upload();
         $em->persist($nota);
         $em->flush();
         return $nota->getId();
