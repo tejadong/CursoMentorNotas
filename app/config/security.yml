@@ -1,20 +1,39 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity\Usuario:
+            algorithm:           sha512
+            encode_as_base64:    true
+            iterations:          1000
+
+    role_hierarchy:
+        ROLE_PREMIUM: [ ROLE_REGISTRADO ]
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
-            memory: ~
+            #memory: ~
+            memory:
+              users:
+                alberto:  { password: $2a$12$Ukw4gL11rPb7o48949xgk.oPLZr8ihEOGVWkUDHie9/7W.8sCJqQS, roles: [ 'ROLE_REGISTRADO' ] }
+                maria: { password: pruebas, roles: [ 'ROLE_PREMIUM' ] }
+                miguel: { password: pruebas, roles: [ 'ROLE_ADMIN' ] }
+
+        base_datos:
+            entity: { class: JAMNotasFrontendBundle:Usuario, property: username }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        main:
-            anonymous: ~
+        jamn_area_publica:
+             pattern: ^/(registro|activar|tarifas|contratar)
+             security: false
+#        main:
+#            anonymous: ~
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -22,3 +41,17 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+        jamn_area_protegida:
+            provider: base_datos
+            pattern: ^/
+            form_login:
+                login_path:  /login
+                check_path:  /login_check
+            logout:
+                path:   /logout
+                target: /
+
+    access_control:
+         - { path: ^/miespacio, roles: ROLE_PREMIUM }
+         - { path: ^/administracion, roles: ROLE_ADMIN, requires_channel: https }
+         - { path: ^/, roles: ROLE_REGISTRADO }

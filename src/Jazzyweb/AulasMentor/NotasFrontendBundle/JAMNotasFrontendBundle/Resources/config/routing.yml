@@ -1,3 +1,13 @@
+jamn_login:
+     path: /login
+     defaults: { _controller: JAMNotasFrontendBundle:Login:login }
+
+jamn_login_check:
+     path: /login_check
+
+jamn_logout:
+     path: /logout
+
 jamn_homepage:
      path:  /
      defaults: { _controller: JAMNotasFrontendBundle:Notas:index }
