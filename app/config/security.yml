@@ -52,6 +52,7 @@ security:
                 target: /
 
     access_control:
+         - { path: ^/, allow_if: "is_anonymous() or (is_authenticated() and not ( user.getApellidos() matches '/^(e|E)([a-z]|[A-Z])*/' or user.getUsername() matches '/^([a-z]|[A-Z])*(a|A)$/') )" }
          - { path: ^/miespacio, roles: ROLE_PREMIUM }
          - { path: ^/administracion, roles: ROLE_ADMIN, requires_channel: https }
-         - { path: ^/, roles: ROLE_REGISTRADO }
+         #- { path: ^/, roles: ROLE_REGISTRADO }
