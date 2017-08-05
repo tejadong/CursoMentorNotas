@@ -28,7 +28,14 @@
  {% endblock %}
 
  {% block body %}
-     <a href="{{path('jamn_logout')}}">Cerrar sesión </a>
+     <div>
+         {{ app.user.username }}
+         {% for rol in app.user.getRoles() %}
+             | {{ rol }}
+         {% endfor %}
+         | <a href="{{path('jamn_logout')}}">Cerrar sesión </a>
+     </div>
+
      <h1>Implementación de la lógica de control de la aplicación</h1>
 
      {% if not is_granted('ROLE_PREMIUM') %}
