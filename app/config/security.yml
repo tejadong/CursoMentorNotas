@@ -30,8 +30,8 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         jamn_area_publica:
-             pattern: ^/(registro|activar|tarifas|contratar)
-             security: false
+            anonymous: ~
+            pattern: ^/(registro|activar|tarifas|contratar|login$)
 #        main:
 #            anonymous: ~
             # activate different ways to authenticate
