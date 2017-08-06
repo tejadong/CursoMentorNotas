@@ -4,6 +4,7 @@ namespace Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Entity
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,6 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="usuario")
  * @ORM\Entity(repositoryClass="Jazzyweb\AulasMentor\NotasFrontendBundle\JAMNotasFrontendBundle\Repository\UsuarioRepository")
+ *
+ * @UniqueEntity("email")
+ * @UniqueEntity("username")
  */
 class Usuario implements AdvancedUserInterface
 {
@@ -71,6 +75,17 @@ class Usuario implements AdvancedUserInterface
      *  message="El password no puede contener más que caracteres alfanuméricos y guiones")
      */
     private $password;
+
+    /**
+     * @var string $password_again
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(max="255")
+     * @Assert\Regex(
+     *     pattern="/^[\w-]+$/",
+     *     message="El password no puede contener más que caracteres alfanuméricos y guiones")
+     */
+    private $password_again;
 
     /**
      * @var string
@@ -253,6 +268,24 @@ class Usuario implements AdvancedUserInterface
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set password_again
+     *
+     * @param string $password_again
+     */
+    public function setPasswordAgain($password) {
+        $this->password_again = $password;
+    }
+
+    /**
+     * Get password_again
+     *
+     * @return string
+     */
+    public function getPasswordAgain() {
+        return $this->password_again;
     }
 
     /**
@@ -495,5 +528,12 @@ class Usuario implements AdvancedUserInterface
     public function isEnabled()
     {
         return $this->getIsActive();
+    }
+
+    /**
+     * @Assert\IsTrue(message = "Has escrito dos password distintos")
+     */
+    public function isPasswordOK() {
+        return ($this->password === $this->password_again);
     }
 }
