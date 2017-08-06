@@ -19,10 +19,10 @@ class NotaType extends AbstractType
         $builder
             ->add('titulo', TextType::class)
             ->add('texto', TextareaType::class)
-            ->add('fecha')
-            ->add('file', FileType::class, array('label' => 'Adjuntar fichero'))
-            ->add('usuario')
-            ->add('crear', SubmitType::class, array('label' => 'Crear'));
+//            ->add('fecha')
+            ->add('file', FileType::class, array('label' => 'Adjuntar fichero'));
+//            ->add('usuario')
+//            ->add('crear', SubmitType::class, array('label' => 'Crear'));
     }
 
     public function configureOptions(OptionsResolver $resolver)
