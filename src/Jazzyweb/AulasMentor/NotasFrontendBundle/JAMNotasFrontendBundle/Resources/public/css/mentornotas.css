@@ -286,9 +286,11 @@ input[type=text], input[type=password]
 
 ul#menu
 {
-    float: right;
+    /*float: right;*/
+    margin-top: 20px;
     margin-bottom: 20px;
     padding-left: 0;
+    text-align: center;
 }
 
 #menu li

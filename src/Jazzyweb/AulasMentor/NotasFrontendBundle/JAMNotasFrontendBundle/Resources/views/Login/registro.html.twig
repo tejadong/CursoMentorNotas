@@ -1,84 +1,113 @@
 {% extends 'JAMNotasFrontendBundle::base.html.twig' %}
 
+{% block stylesheets %}
+    <link
+            href="{{ asset('bundles/jamnotasfrontend/vendors/jquery/css/ui-lightness/jquery-ui-1.10.3.custom.css') }}"
+            type="text/css" rel="stylesheet" />
+    <link
+            href="{{ asset('bundles/jamnotasfrontend/css/mentornotas.css') }}"
+            type="text/css" rel="stylesheet" />
+{% endblock %}
+
  {% block body %}
-     <div class="mentornotas-content-login">
-         <h1>Regístrate</h1>
-         <div>
-             {{ form_start(form,
-             {
-                 'action': path('jamn_registro'),
-                 'method': 'post',
-                 'attr': {'novalidate': 'novalidate', 'id': 'login'}
-             })
-             }}
 
-             {% if form_errors(form) %}
-                 <div class="error">{{ form_errors(form) }}</div>
-             {% endif %}
-
-             <div>
-                 {% if form_errors(form.nombre ) %}
-                     <div class="error">{{ form_errors(form.nombre ) }}</div>
-                 {%endif%}
-                 <label for="nombre">Tu nombre:</label>
-                 {{ form_widget(form.nombre) }}
+     <div id="mentornotas-wrapper">
+         <div id="mentornotas-header">
+             <div style="float: left;">
+                 <a href="">
+                     <img src="{{ asset('bundles/jamnotasfrontend/images/mentor.png') }}" alt="mentornotas"/>
+                 </a>
              </div>
-
-             <div>
-                 {% if form_errors(form.apellidos ) %}
-                     <div class="error">{{ form_errors(form.apellidos ) }}
-                     </div>
-                 {%endif%}
-                 <label for="apellidos">Apellidos:</label>
-                 {{ form_widget(form.apellidos) }}
+             <div style="text-align: center; font-style: italic">
+                 <h1>MentorNotas</h1>
+                 <h2>tu block de notas inteligente</h2>
              </div>
-
-             <div>
-                 {% if form_errors(form.username ) %}
-                     <div class="error">{{ form_errors(form.username ) }}
-                     </div>
-                 {%endif%}
-                 <label for="username">Username:</label>
-                 {{ form_widget(form.username) }}
-             </div>
-
-             <div>
-                 {% if form_errors(form.email ) %}
-                     <div class="error">{{ form_errors(form.email ) }}
-                     </div>
-                 {%endif%}
-                 <label for="email">Email:</label>
-                 {{ form_widget(form.email) }}
-
-             </div>
-
-             <div>
-                 {% if form_errors(form.password ) %}
-                     <div class="error">
-                         {{ form_errors(form.password ) }}
-                     </div>
-                 {%endif%}
-                 <label for="password">Password:</label>
-                 {{ form_widget(form.password) }}
-
-             </div>
-
-             <div>
-                 {% if form_errors(form.password_again ) %}
-                     <div class="error">
-                         {{ form_errors(form.password_again ) }}
-                     </div>
-                 {%endif%}
-                 <label for="password_again">Password(otra vez):
-                 </label>
-                 {{ form_widget(form.password_again) }}
-
-             </div>
-
-             {{ form_rest(form) }}
-             <input type="submit" class="mentornotas-button-grey" value="Adelante" />
-
-             {{ form_end(form) }}
          </div>
+
+         <hr/>
+
+         <div class="mentornotas-content-login">
+
+             <h1>Regístrate</h1>
+             <div>
+                 {{ form_start(form,
+                 {
+                     'action': path('jamn_registro'),
+                     'method': 'post',
+                     'attr': {'novalidate': 'novalidate', 'id': 'login'}
+                 })
+                 }}
+
+                 {% if form_errors(form) %}
+                     <div class="error">{{ form_errors(form) }}</div>
+                 {% endif %}
+
+                 <div>
+                     {% if form_errors(form.nombre ) %}
+                         <div class="error">{{ form_errors(form.nombre ) }}</div>
+                     {%endif%}
+                     <label for="nombre">Tu nombre:</label>
+                     {{ form_widget(form.nombre) }}
+                 </div>
+
+                 <div>
+                     {% if form_errors(form.apellidos ) %}
+                         <div class="error">{{ form_errors(form.apellidos ) }}
+                         </div>
+                     {%endif%}
+                     <label for="apellidos">Apellidos:</label>
+                     {{ form_widget(form.apellidos) }}
+                 </div>
+
+                 <div>
+                     {% if form_errors(form.username ) %}
+                         <div class="error">{{ form_errors(form.username ) }}
+                         </div>
+                     {%endif%}
+                     <label for="username">Username:</label>
+                     {{ form_widget(form.username) }}
+                 </div>
+
+                 <div>
+                     {% if form_errors(form.email ) %}
+                         <div class="error">{{ form_errors(form.email ) }}
+                         </div>
+                     {%endif%}
+                     <label for="email">Email:</label>
+                     {{ form_widget(form.email) }}
+
+                 </div>
+
+                 <div>
+                     {% if form_errors(form.password ) %}
+                         <div class="error">
+                             {{ form_errors(form.password ) }}
+                         </div>
+                     {%endif%}
+                     <label for="password">Password:</label>
+                     {{ form_widget(form.password) }}
+
+                 </div>
+
+                 <div>
+                     {% if form_errors(form.password_again ) %}
+                         <div class="error">
+                             {{ form_errors(form.password_again ) }}
+                         </div>
+                     {%endif%}
+                     <label for="password_again">Password(otra vez):
+                     </label>
+                     {{ form_widget(form.password_again) }}
+
+                 </div>
+
+                 {{ form_rest(form) }}
+                 <input type="submit" class="mentornotas-button-grey" value="Adelante" />
+
+                 {{ form_end(form) }}
+             </div>
+
+         </div>
+
      </div>
  {% endblock %}

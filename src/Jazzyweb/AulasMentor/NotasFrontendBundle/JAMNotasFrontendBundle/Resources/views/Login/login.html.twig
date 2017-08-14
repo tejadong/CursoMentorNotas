@@ -1,23 +1,57 @@
 {% extends '::base.html.twig' %}
 
- {% block body %}
-     <h1>Formulario de Login</h1>
+{% block stylesheets %}
+    <link
+            href="{{ asset('bundles/jamnotasfrontend/vendors/jquery/css/ui-lightness/jquery-ui-1.10.3.custom.css') }}"
+            type="text/css" rel="stylesheet" />
+    <link
+            href="{{ asset('bundles/jamnotasfrontend/css/mentornotas.css') }}"
+            type="text/css" rel="stylesheet" />
+{% endblock %}
 
-     {% if error %}
-         <div class="error">{{ error.message }}</div>
-     {% endif %}
+{% block body %}
 
-     <form action="{{ path("jamn_login_check") }}" method="post" id="login">
-         <div>
-             <label for="username">Username</label>
-             <input type="text" id="username" name="_username" value="{{ last_username }}" />
-         </div>
+    <div id="mentornotas-wrapper">
+        <div id="mentornotas-header">
+            <div style="float: left;">
+                <a href="">
+                    <img src="{{ asset('bundles/jamnotasfrontend/images/mentor.png') }}" alt="mentornotas"/>
+                </a>
+            </div>
+            <div style="text-align: center; font-style: italic">
+                <h1>MentorNotas</h1>
+                <h2>tu block de notas inteligente</h2>
+            </div>
+        </div>
 
-         <div>
-             <label for="password">Password</label>
-             <input type="password" id="password" name="_password" />
-         </div>
+        <hr/>
 
-         <input type="submit" class="symfony-button-grey" value="LOGIN" />
-     </form>
- {% endblock %}
+        <div class="mentornotas-content-login">
+
+            <h1>Login</h1>
+
+            <div>
+                {% if error %}
+                    <div class="error">{{ error.message }}</div>
+                {% endif %}
+
+                <form action="{{ path("jamn_login_check") }}" method="post" id="login">
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="_password" />
+                    </div>
+                    <input type="submit" class="symfony-button-grey" value="LOGIN" />
+                </form>
+            </div>
+
+        </div>
+        <ul id="menu">
+            <li>¿Aún no tienes una cuenta? <a href="{{ path('jamn_registro') }}">¡Registrate!</a></li>
+        </ul>
+    </div>
+
+{% endblock %}
